@@ -265,7 +265,7 @@ class Provisioner {
                     return false;
             }
 
-         }
+        }
 
         /* Login, encoding the parameters as a POST request to the remote site */
         if ( $remoteSiteTypeIsEvo ) {
@@ -273,7 +273,7 @@ class Provisioner {
         } else {
             $this->_siteIdString = Provisioner::AUTHHEADER . $siteId;
             curl_setopt($this->_curlSession, CURLOPT_HTTPHEADER, array($this->_siteIdString));
-            curl_setopt($this->_curlSession, CURLOPT_URL, $this->_connectorURL.'/security/login.php');
+            curl_setopt($this->_curlSession, CURLOPT_URL, $this->_connectorURL.'/connectors/security/login.php');
         }
         $codedPassword = urlencode($password);
         curl_setopt($this->_curlSession, CURLOPT_POST, true);
@@ -2960,17 +2960,17 @@ class Provisioner {
         $contexts = $this->modx->getCollection('modContext');
         foreach ($contexts as $context) {
             $paths[] = $context->get('key') . '/';
-         }
-         $options = array(
+        }
+        $options = array(
             'publishing' => 1,
             'extensions' => array('.cache.php', '.msg.php', '.tpl.php'),
-         );
-         if ($this->modx->getOption('cache_db')) $options['objects'] = '*';
-         $this->modx->cacheManager->clearCache($paths, $options);
+        );
+        if ($this->modx->getOption('cache_db')) $options['objects'] = '*';
+        $this->modx->cacheManager->clearCache($paths, $options);
 
-         /* Done, exit */
-         $this->_closeImportLog();
-         return true;
+        /* Done, exit */
+        $this->_closeImportLog();
+        return true;
        
    }
 
@@ -3279,6 +3279,4 @@ class Provisioner {
        fclose($this->log);
 
    }
-
-        
 }
